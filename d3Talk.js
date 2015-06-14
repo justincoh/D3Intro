@@ -86,9 +86,10 @@ var buildGraph = function(xAxis) {
         .range(['#4130ff', '#730001']);
 
 
-    var testScale = d3.scale.linear()
+    var radius = d3.scale.linear()
         .domain(colorDomain)
-        .range(['10px', '40px'])
+        .range(['10px', '40px']);
+        
         //Add Dots
     var dots = svg.selectAll('dots')
         .data(data)
@@ -102,7 +103,7 @@ var buildGraph = function(xAxis) {
         })
         // .attr('r','10px')
         .attr('r', function(d) {
-            return testScale(d.frustration);
+            return radius(d.frustration);
         })
         .attr('fill', function(d) {
             return color(d.frustration)
