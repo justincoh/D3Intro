@@ -15,20 +15,23 @@ var	data = [
 var width = 800,
 	height = 600;
 
-//Create the SVG 
-var buildGraph = function(xAxis) {
+var xMeasure='time';
 
+//Create the SVG 
+var update = function() {
+    d3.select('svg').remove();
+
+    console.log('MEASURE',xMeasure==='time')
+    xMeasure = xMeasure === 'time' ? 'frustration':'time';
 
     var svg = d3.select('.chart').append('svg')
         .attr('width', width)
         .attr('height', height)
-        // .style('border','1px solid grey')
         .style('overflow', 'visible')
 
     //Touch on max/min, use extent
-
     var xDomain = d3.extent(data, function(d) {
-        return d.time;
+        return d[xMeasure];
     });
 
     var yDomain = d3.extent(data, function(d) {
@@ -52,12 +55,10 @@ var buildGraph = function(xAxis) {
         .append('text')
         .attr('x', width / 2.5)
         .attr('y', 35)
-        .text('Time Spent')
+        .text(xMeasure)
 
 
     //Build Y Axis
-
-
     var y = d3.scale.linear()
         .domain([yDomain[0], 100])
         .range([height, 0]); //backwards because of svg coordinates
@@ -95,7 +96,7 @@ var buildGraph = function(xAxis) {
         .enter()
         .append('circle')
         .attr('cx', function(d) {
-            return x(d.time)
+            return x(d[xMeasure])
         })
         .attr('cy', function(d) {
             return y(d.skills)
@@ -110,6 +111,10 @@ var buildGraph = function(xAxis) {
         .style('opacity', '.7')
 }
 
+update();
+
+var button = d3.select('button')
+    .on('click',update)
 
 // //For slides
 // //straight from source
