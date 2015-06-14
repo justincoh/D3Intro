@@ -1,9 +1,31 @@
 <body>
-    <div class='container' style='margin-left:10%;'>
+    <div class='container' style='margin:5% 10%;'>
+    	<h1 style='margin-left:10%'>D3 Skills vs. Time, Frustration, and Caffeine Intake</h1>
         <div class='chart'></div>
         <button class ='switch' style='margin-top:5%;'>Change X Axis</input>
     </div>
 </body>
+
+<script type="text/javascript">
+	var	data = [
+	{ time:0, skills:1, frustration:0, caffeineInSystem: 1},
+	{ time:1, skills:2, frustration:20, caffeineInSystem: 1},
+	{ time:2, skills:3, frustration:50, caffeineInSystem: 3},
+	{ time:3, skills:4, frustration:90, caffeineInSystem: 3},
+	{ time:4, skills:6, frustration:70, caffeineInSystem: 4},
+	{ time:5, skills:12, frustration:50, caffeineInSystem: 5},
+	{ time:6, skills:18, frustration:20, caffeineInSystem: 4},
+	{ time:7, skills:28, frustration:10, caffeineInSystem: 1},
+    { time:7.5, skills:36, frustration:18, caffeineInSystem: 0},
+	{ time:8, skills:47, frustration:5, caffeineInSystem: 0},
+    { time:8.5, skills:55, frustration:25, caffeineInSystem: 1},
+	{ time:9, skills:61, frustration:50, caffeineInSystem: 2},
+	{ time:10, skills:66, frustration:80, caffeineInSystem: 4},
+];
+
+
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
-<!-- <script src="d3Talk.js" charset="utf-8"></script> -->
-<script src="d3TalkWrapped.js" charset="utf-8"></script>
+<script src="d3Talk.js" charset="utf-8"></script>
+<!-- <script src="d3TalkWrapped.js" charset="utf-8"></script> -->

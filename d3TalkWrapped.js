@@ -1,16 +1,3 @@
-var	data = [
-	{ time:0, skills:0, frustration:0},
-	{ time:1, skills:2, frustration:20},
-	{ time:2, skills:3, frustration:50},
-	{ time:3, skills:4, frustration:90},
-	{ time:4, skills:6, frustration:70},
-	{ time:5, skills:12, frustration:50},
-	{ time:6, skills:18, frustration:20},
-	{ time:7, skills:28, frustration:10},
-	{ time:8, skills:47, frustration:5},
-	{ time:9, skills:61, frustration:50},
-	{ time:10, skills:66, frustration:80},
-];
 var width = 800,
     height = 600;
 
@@ -20,6 +7,8 @@ var svg = d3.select('.chart').append('svg')
     .attr('width', width)
     .attr('height', height)
     .style('overflow', 'visible')
+
+
 var yDomain = d3.extent(data, function(d) {
     return d.skills;
 });
@@ -34,8 +23,8 @@ var color = d3.scale.linear()
 
 //radius sizing
 var radius = d3.scale.linear()
-    .domain(colorDomain)
-    .range(['10px', '40px'])
+    .domain(d3.extent(data,function(d){return d.caffeineInSystem;}))
+    .range(['5px', '50px'])
 
 //Build Y Axis
 var y = d3.scale.linear()
@@ -64,7 +53,7 @@ var dots = svg.selectAll('dots')
     .attr('fill', function(d) {
         return color(d.frustration)
     })
-    .style('opacity', '.7')
+    .style('opacity', '.9')
 
 var update = function() {
     xMeasure = xMeasure === 'time' ? 'frustration' : 'time';
@@ -89,14 +78,14 @@ var update = function() {
         .call(xAxis)
         .attr('transform', 'translate(0,' + height + ')') //moves down to bottom of svg
         .append('text')
-        .transition().duration(2000)
+        .transition().duration(1000)
         .attr('x', width / 2.5)
         .attr('y', 35)
         .text(xMeasure)
 
 
     dots
-        .transition().duration(2000)
+        .transition().duration(1000)
         .attr('cx', function(d) {
             return x(d[xMeasure])
         })
@@ -104,20 +93,12 @@ var update = function() {
             return y(d.skills)
         })
         .attr('r', function(d) {
-            return radius(d.frustration);
+            return radius(d.caffeineInSystem);
         })
         
 }
 
 update();
 
-var button = d3.select('button')
-    .on('click', update)
-
-// //For slides
-// //straight from source
-// scale.domain = function(x) {
-//  if (!arguments.length) return domain;
-//  domain = x.map(Number);
-//  return rescale();
-// };
+d3.select('button')
+    .on('click', update);
