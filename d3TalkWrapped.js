@@ -3,6 +3,9 @@ var width = 800,
 
 var xMeasure = 'frustration';
 var yMeasure = 'caffeineInSystem';
+var colorMeasure = 'frustration';
+
+
 //Create the SVG 
 var svg = d3.select('.chart').append('svg')
     .attr('width', width)
@@ -10,13 +13,7 @@ var svg = d3.select('.chart').append('svg')
     .style('overflow', 'visible')
 
 
-//dot colors
-var colorDomain = d3.extent(data, function(d) {
-    return d.frustration;
-});
-var color = d3.scale.linear()
-    .domain(colorDomain)
-    .range(['#4130ff', '#730001']);
+
 
 //radius sizing
 var radius = d3.scale.linear()
@@ -30,16 +27,17 @@ var dots = svg.selectAll('dots')
     .data(data)
     .enter()
     .append('circle')
-    .attr('fill', function(d) {
-        return color(d.frustration)
-    })
     .style('opacity', '.9')
+
+var helperText = d3.select('.dot-color')
+        .append('text');
 
 var update = function() {
     xMeasure = xMeasure === 'time' ? 'skills' : 'time';
-    yMeasure = yMeasure === 'skills'? 'frustration':'skills';
+    yMeasure = yMeasure === 'skills' ? 'frustration' : 'skills';
+    colorMeasure = colorMeasure === 'caffeineInSystem' ? 'frustration' : 'caffeineInSystem';
     // yMeasure = 'skills';
-    
+
     var xDomain = d3.extent(data, function(d) {
         return d[xMeasure];
     });
@@ -82,7 +80,7 @@ var update = function() {
     //Draw Y Axis
     d3.select('.y-axis').remove();
     svg.append('g')
-        .attr('class','y-axis')
+        .attr('class', 'y-axis')
         .call(yAxis)
         .append('text')
         .attr('transform', 'rotate(-90)')
@@ -91,7 +89,13 @@ var update = function() {
         .attr('y', -35)
         .text(yMeasure)
 
-
+    //dot colors
+    var colorDomain = d3.extent(data, function(d) {
+        return d[colorMeasure];
+    });
+    var color = d3.scale.linear()
+        .domain(colorDomain)
+        .range(['#4130ff', '#730001']);
 
     dots
         .transition().duration(1000)
@@ -104,6 +108,12 @@ var update = function() {
         .attr('r', function(d) {
             return radius(d.caffeineInSystem);
         })
+        .attr('fill', function(d) {
+            return color(d[colorMeasure])
+        })
+
+        helperText
+        .text('Dot Color: '+ colorMeasure)
 
 }
 
