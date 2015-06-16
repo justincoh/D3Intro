@@ -18,7 +18,7 @@ var svg = d3.select('.chart').append('svg')
 //radius sizing
 var radius = d3.scale.linear()
     .domain(d3.extent(data, function(d) {
-        return d.caffeineInSystem;
+        return d.frustration;
     }))
     .range(['5px', '50px'])
 
@@ -35,7 +35,8 @@ var helperText = d3.select('.dot-color')
 var update = function() {
     xMeasure = xMeasure === 'time' ? 'skills' : 'time';
     yMeasure = yMeasure === 'skills' ? 'frustration' : 'skills';
-    colorMeasure = colorMeasure === 'caffeineInSystem' ? 'frustration' : 'caffeineInSystem';
+    // colorMeasure = colorMeasure === 'caffeineInSystem' ? 'frustration' : 'caffeineInSystem';
+    colorMeasure = 'caffeineInSystem';
     // yMeasure = 'skills';
 
     var xDomain = d3.extent(data, function(d) {
@@ -106,7 +107,7 @@ var update = function() {
             return y(d[yMeasure])
         })
         .attr('r', function(d) {
-            return radius(d.caffeineInSystem);
+            return radius(d.frustration);
         })
         .attr('fill', function(d) {
             return color(d[colorMeasure])
