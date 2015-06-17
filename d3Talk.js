@@ -5,7 +5,8 @@ var width = 800,
 var svg = d3.select('.chart').append('svg')
     .attr('width', width)
     .attr('height', height)
-    .style('overflow', 'visible');
+    .style('overflow', 'visible')
+    // .style('background-color','black')
 
 //domains for scale functions
 var xDomain = d3.extent(data, function(d) {
@@ -65,12 +66,13 @@ var color = d3.scale.linear()
     .domain(colorDomain)
     .range(['#4130ff', '#730001']);
 
-
+//Radius Scale
 var radius = d3.scale.linear()
     .domain(d3.extent(data,function(d){
     	return d.caffeineInSystem;
     }))
     .range(['10px', '40px']);
+
 
 //Add Dots
 
@@ -84,7 +86,6 @@ var dots = svg.selectAll('dots')
     .attr('cy', function(d) {
         return y(d.skills)
     })
-    // .attr('r','10px')
     .attr('r', function(d) {
         return radius(d.caffeineInSystem);
     })
@@ -92,4 +93,3 @@ var dots = svg.selectAll('dots')
         return color(d.frustration)
     })
     .style('opacity', '.9')
-    
