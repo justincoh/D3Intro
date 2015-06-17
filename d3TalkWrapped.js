@@ -1,6 +1,7 @@
 var width = 800,
     height = 600;
 
+//paramaterize
 var xMeasure = 'frustration';
 var yMeasure = 'caffeineInSystem';
 var colorMeasure = 'frustration';
@@ -13,10 +14,8 @@ var svg = d3.select('.chart').append('svg')
     .style('overflow', 'visible')
 
 
-
-
 //radius sizing
-var radius = d3.scale.linear()
+var radiusScale = d3.scale.linear()
     .domain(d3.extent(data, function(d) {
         return d.frustration;
     }))
@@ -94,7 +93,7 @@ var update = function() {
     var colorDomain = d3.extent(data, function(d) {
         return d[colorMeasure];
     });
-    var color = d3.scale.linear()
+    var colorScale = d3.scale.linear()
         .domain(colorDomain)
         .range(['#4130ff', '#730001']);
 
@@ -107,14 +106,14 @@ var update = function() {
             return y(d[yMeasure])
         })
         .attr('r', function(d) {
-            return radius(d.frustration);
+            return radiusScale(d.frustration);
         })
         .attr('fill', function(d) {
-            return color(d[colorMeasure])
+            return colorScale(d[colorMeasure])
         })
 
-        helperText
-        .text('Dot Color: '+ colorMeasure)
+        // helperText
+        // .text('Dot Color: '+ colorMeasure)
 
 }
 

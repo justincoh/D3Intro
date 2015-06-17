@@ -62,12 +62,12 @@ var colorDomain = d3.extent(data, function(d) {
     return d.frustration;
 });
 //color scale
-var color = d3.scale.linear()
+var colorScale = d3.scale.linear()
     .domain(colorDomain)
     .range(['#4130ff', '#730001']);
 
 //Radius Scale
-var radius = d3.scale.linear()
+var radiusScale = d3.scale.linear()
     .domain(d3.extent(data,function(d){
     	return d.caffeineInSystem;
     }))
@@ -87,9 +87,9 @@ var dots = svg.selectAll('dots')
         return y(d.skills)
     })
     .attr('r', function(d) {
-        return radius(d.caffeineInSystem);
+        return radiusScale(d.caffeineInSystem);
     })
     .attr('fill', function(d) {
-        return color(d.frustration)
+        return colorScale(d.frustration)
     })
-    .style('opacity', '.9')
+    .style('opacity', '.9');
