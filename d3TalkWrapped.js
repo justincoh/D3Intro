@@ -42,9 +42,13 @@ var update = function() {
         return d[xMeasure];
     });
 
-    var yDomain = d3.extent(data, function(d) {
-        return d[yMeasure];
-    });
+    if(yMeasure==='skills'){
+        yDomain=[0,100]
+    } else{
+        var yDomain = d3.extent(data, function(d) {
+            return d[yMeasure];
+        });
+    }
 
     //Build x Axis
     var x = d3.scale.linear()
