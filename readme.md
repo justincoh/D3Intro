@@ -10,5 +10,5 @@
 
 More ReadMe to come
 
-[NYC-D3js]:http://www.meetup.com/NYC-D3-JS/
+[NYC-D3js]:http://www.meetup.com/NYC-D3-JS/events/223358262/
 [here]:https://slides.com/justincohen/d3-graph-intro/
